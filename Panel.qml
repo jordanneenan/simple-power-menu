@@ -46,9 +46,34 @@ Ui.Panel {
   }
 
   function persistVisibleActions() {
-    if (!bar) return
-    var json = JSON.stringify(visibleActionIds)
-    bar.run("omarchy bar set " + moduleName + " visibleActions " + Commons.Util.shellQuote(json) + " --json")
+    if (!bar || !bar.shell || typeof bar.shell.mutateShellConfig !== "function") return
+    var snapshot = visibleActionIds.slice()
+
+    // The shell owns shell.json and serializes this mutation. Keeping the
+    // update in-process also avoids passing user preferences through a shell.
+    bar.shell.mutateShellConfig(function(config) {
+      if (!Commons.Util.isPlainObject(config.bar)
+          || !Commons.Util.isPlainObject(config.bar.layout)) return
+
+      var sections = ["left", "center", "right"]
+      for (var i = 0; i < sections.length; i++) {
+        var entries = config.bar.layout[sections[i]]
+        if (!Array.isArray(entries)) continue
+
+        for (var j = 0; j < entries.length; j++) {
+          var entry = entries[j]
+          var id = Commons.Util.isPlainObject(entry) ? String(entry.id || "") : String(entry || "")
+          if (id !== root.moduleName) continue
+
+          if (!Commons.Util.isPlainObject(entry)) {
+            entry = { id: root.moduleName }
+            entries[j] = entry
+          }
+          entry.visibleActions = snapshot
+          return
+        }
+      }
+    })
   }
 
   function toggleActionVisibility(id) {
@@ -172,8 +197,10 @@ Ui.Panel {
             Text {
               id: actionLabel
               anchors.left: parent.left
-              anchors.leftMargin: root.menuMode === "settings"
-                ? Commons.Style.space(36)
+              anchors.leftMargin: Commons.Style.space(10)
+              anchors.right: root.menuMode === "settings" ? checkBox.left : parent.right
+              anchors.rightMargin: root.menuMode === "settings"
+                ? Commons.Style.space(10)
                 : Commons.Style.space(10)
               anchors.verticalCenter: parent.verticalCenter
               text: actionRow.modelData.label
@@ -187,8 +214,8 @@ Ui.Panel {
               visible: root.menuMode === "settings"
               width: Commons.Style.space(14)
               height: width
-              anchors.left: parent.left
-              anchors.leftMargin: Commons.Style.space(10)
+              anchors.right: parent.right
+              anchors.rightMargin: Commons.Style.space(10)
               anchors.verticalCenter: parent.verticalCenter
               radius: Math.max(2, Commons.Style.cornerRadius / 2)
               color: root.actionIsVisible(actionRow.modelData.id)

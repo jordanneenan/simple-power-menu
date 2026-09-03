@@ -60,9 +60,9 @@ the user selects an action. Its action commands are fixed in the source and
 cannot be supplied through settings. It does not use the network, request
 elevated privileges, or run background services.
 
-When the user changes the right-click checklist, the plugin writes only the
-`visibleActions` array in this widget's existing Omarchy bar configuration via
-`omarchy bar set`. It does not read or store personal information.
+When the user changes the right-click checklist, the plugin asks Omarchy's
+configuration owner to write only the `visibleActions` array in this widget's
+existing bar entry. It does not read or store personal information.
 
 ## Removal
 

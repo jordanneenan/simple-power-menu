@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "id": "io.github.jordanneenan.simple-power-menu",
   "name": "Simple Power Menu",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "jordanneenan",
-  "description": "A compact power button with a bar-anchored system menu",
+  "description": "A compact, customizable power menu anchored to the Omarchy bar",
   "homepage": "https://github.com/jordanneenan/simple-power-menu",
   "license": "MIT",
   "kinds": ["bar-widget"],
@@ -13,9 +13,28 @@
   },
   "barWidget": {
     "displayName": "Simple Power Menu",
-    "description": "Lock, restart, or shut down from a compact bar menu",
+    "description": "Choose which lock, screensaver, sleep, restart, and shut-down actions to show",
     "category": "System",
     "allowMultiple": false,
-    "defaultSection": "right"
+    "defaultSection": "right",
+    "schema": [
+      {
+        "key": "visibleActions",
+        "type": "multiselect",
+        "label": "Visible actions",
+        "description": "Choose which actions appear when the power icon is left-clicked.",
+        "noSelectionText": "No actions",
+        "placeholderText": "Search actions...",
+        "emptyText": "No actions",
+        "defaultValue": ["lock", "screensaver", "sleep", "restart", "shutdown"],
+        "options": [
+          { "value": "lock", "label": "Lock" },
+          { "value": "screensaver", "label": "Screensaver" },
+          { "value": "sleep", "label": "Sleep" },
+          { "value": "restart", "label": "Restart" },
+          { "value": "shutdown", "label": "Shut down" }
+        ]
+      }
+    ]
   }
 }

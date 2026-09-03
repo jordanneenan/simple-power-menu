@@ -28,7 +28,11 @@ Ui.BarWidget {
   }
 
   function toggle() {
-    if (powerPanel) powerPanel.toggle()
+    if (powerPanel) powerPanel.toggleActions()
+  }
+
+  function toggleSettings() {
+    if (powerPanel) powerPanel.toggleSettings()
   }
 
   function closeForPopoutSwitch() {
@@ -40,12 +44,14 @@ Ui.BarWidget {
     panelLoader.item.bar = root.bar
     panelLoader.item.anchorItem = button
     panelLoader.item.hostWidget = root
+    panelLoader.item.settings = root.settings
   }
 
   implicitWidth: button.implicitWidth
   implicitHeight: button.implicitHeight
 
   onBarChanged: injectPanel()
+  onSettingsChanged: injectPanel()
 
   Loader {
     id: panelLoader
@@ -64,7 +70,7 @@ Ui.BarWidget {
     bar: root.bar
     slotSize: Commons.Style.space(18)
     opticalSize: Commons.Style.space(12)
-    tooltipText: "Power"
+    tooltipText: "Power · right-click to customize"
     iconComponent: Component {
       Canvas {
         id: powerGlyph
@@ -99,6 +105,7 @@ Ui.BarWidget {
     }
     onPressed: function(buttonCode) {
       if (buttonCode === Qt.LeftButton) root.toggle()
+      else if (buttonCode === Qt.RightButton) root.toggleSettings()
     }
   }
 }

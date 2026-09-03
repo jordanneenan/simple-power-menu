@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.jordanneenan.simple-power-menu",
+  "name": "Simple Power Menu",
+  "version": "1.0.0",
+  "author": "jordanneenan",
+  "description": "A compact power button with a bar-anchored system menu",
+  "homepage": "https://github.com/jordanneenan/simple-power-menu",
+  "license": "MIT",
+  "kinds": ["bar-widget"],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Simple Power Menu",
+    "description": "Lock, restart, or shut down from a compact bar menu",
+    "category": "System",
+    "allowMultiple": false,
+    "defaultSection": "right"
+  }
+}

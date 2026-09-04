@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import Quickshell
 import qs.Commons as Commons
 import qs.Ui as Ui
 
@@ -17,11 +18,11 @@ Ui.Panel {
   readonly property color foreground: bar ? bar.foreground : Commons.Color.foreground
   readonly property color urgent: bar ? bar.urgent : Commons.Color.urgent
   readonly property var actions: [
-    { id: "lock", label: "Lock", command: "omarchy system lock", danger: false },
-    { id: "screensaver", label: "Screensaver", command: "omarchy launch screensaver", danger: false },
-    { id: "sleep", label: "Sleep", command: "systemctl suspend", danger: false },
-    { id: "restart", label: "Restart", command: "omarchy system reboot", danger: false },
-    { id: "shutdown", label: "Shut down", command: "omarchy system shutdown", danger: true }
+    { id: "lock", label: "Lock", argv: ["/usr/bin/timeout", "--signal=TERM", "--kill-after=2s", "30s", "/usr/bin/omarchy", "system", "lock"], danger: false },
+    { id: "screensaver", label: "Screensaver", argv: ["/usr/bin/timeout", "--signal=TERM", "--kill-after=2s", "30s", "/usr/bin/omarchy", "launch", "screensaver"], danger: false },
+    { id: "sleep", label: "Sleep", argv: ["/usr/bin/timeout", "--signal=TERM", "--kill-after=2s", "30s", "/usr/bin/systemctl", "suspend"], danger: false },
+    { id: "restart", label: "Restart", argv: ["/usr/bin/timeout", "--signal=TERM", "--kill-after=2s", "30s", "/usr/bin/omarchy", "system", "reboot"], danger: false },
+    { id: "shutdown", label: "Shut down", argv: ["/usr/bin/timeout", "--signal=TERM", "--kill-after=2s", "30s", "/usr/bin/omarchy", "system", "shutdown"], danger: true }
   ]
   readonly property var defaultActionIds: ["lock", "screensaver", "sleep", "restart", "shutdown"]
   property var visibleActionIds: actionIdsFromSettings(settings)
@@ -125,9 +126,12 @@ Ui.Panel {
       toggleActionVisibility(action.id)
       return
     }
-    if (!bar) return
     close()
-    bar.run(action.command)
+    // GNU timeout (without --foreground) owns a dedicated process group. It
+    // bounds the complete action tree with TERM, followed by KILL after 2s.
+    // Every executable and argument is a fixed absolute argv entry: no shell,
+    // PATH lookup, or user-controlled command material is involved.
+    Quickshell.execDetached(action.argv)
   }
 
   onSettingsChanged: visibleActionIds = actionIdsFromSettings(settings)

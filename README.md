@@ -1,19 +1,14 @@
 # Simple Power Menu
 
-A compact power menu for the Omarchy bar. It adds a fine-line power icon and
-opens a small native popover beside the icon rather than a menu in the middle
-of the screen.
+A compact power menu. It adds a power icon and implements a small native
+popover under the bar. That's it.
 
 ![Simple Power Menu open beneath the power icon](preview.png)
 
 ## Features
 
-- Compact 12px power glyph with a fine stroke
-- Native popover anchored to the bar icon
-- Lock, screensaver, sleep, restart, and shut-down actions
-- Right-click checklist for choosing which actions the main menu shows
-- Preferences saved in the widget's existing Omarchy bar configuration
-- Mouse and keyboard navigation
+- Menu: Lock, Screensaver, Sleep, Restart, and Shut down
+- Options: Right-click the icon to toggle which actions are displayed
 - Follows the active Omarchy theme and bar position
 
 ## Requirements

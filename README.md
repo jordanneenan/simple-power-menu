@@ -1,7 +1,8 @@
 # Simple Power Menu
 
-A compact power menu. It adds a power icon and implements a small native
-popover under the bar. That's it.
+Adds a power icon to the bar, which activates a small menu when clicked, giving
+the options to start the screensaver, sleep, lock, restart and shutdown.
+Right-clicking the icon will show options to toggle and reorder menu items.
 
 ![Simple Power Menu open beneath the power icon](preview.png)
 

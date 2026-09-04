@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "io.github.jordanneenan.simple-power-menu",
   "name": "Simple Power Menu",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "author": "jordanneenan",
   "description": "A compact, customizable power menu anchored to the Omarchy bar",
   "homepage": "https://github.com/jordanneenan/simple-power-menu",
@@ -26,11 +26,11 @@
         "noSelectionText": "No actions",
         "placeholderText": "Search actions...",
         "emptyText": "No actions",
-        "defaultValue": ["lock", "screensaver", "sleep", "restart", "shutdown"],
+        "defaultValue": ["screensaver", "sleep", "lock", "restart", "shutdown"],
         "options": [
-          { "value": "lock", "label": "Lock" },
           { "value": "screensaver", "label": "Screensaver" },
           { "value": "sleep", "label": "Sleep" },
+          { "value": "lock", "label": "Lock" },
           { "value": "restart", "label": "Restart" },
           { "value": "shutdown", "label": "Shut down" }
         ]

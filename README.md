@@ -7,8 +7,8 @@ popover under the bar. That's it.
 
 ## Features
 
-- Menu: Lock, Screensaver, Sleep, Restart, and Shut down
-- Options: Right-click the icon to toggle which actions are displayed
+- Menu: Screensaver, Sleep, Lock, Restart, and Shut down
+- Options: Right-click to toggle actions or drag the grip to reorder them
 - Follows the active Omarchy theme and bar position
 
 ## Requirements
@@ -37,7 +37,7 @@ omarchy bar move io.github.jordanneenan.simple-power-menu --section right
 ### Run an action
 
 1. Left-click the power icon.
-2. Select **Lock**, **Screensaver**, **Sleep**, **Restart**, or **Shut down**.
+2. Select **Screensaver**, **Sleep**, **Lock**, **Restart**, or **Shut down**.
 
 Only actions enabled in the customization menu appear here. Restart and shut
 down take effect immediately after selection.
@@ -47,8 +47,9 @@ down take effect immediately after selection.
 1. Right-click the power icon to open the complete action list.
 2. Use the checkbox on the right of each label to show or hide that action in
    the normal left-click menu.
-3. Keep toggling entries as needed; the customization menu stays open and each
-   change is applied and saved immediately.
+3. Drag the three-line grip on the left of a row to change its position.
+4. Keep editing as needed; visibility and order are applied and saved
+   immediately.
 
 All five actions are enabled on first install. You can hide every action if you
 want an empty menu; right-clicking the icon always reopens the complete list so
@@ -71,8 +72,9 @@ a 30-second deadline. At the deadline the complete group receives `TERM`, then
 network, request elevated privileges, or run background services.
 
 When the user changes the right-click checklist, the plugin asks Omarchy's
-configuration owner to write only the `visibleActions` array in this widget's
-existing bar entry. It does not read or store personal information.
+configuration owner to write only the `visibleActions` and `actionOrder` arrays
+in this widget's existing bar entry. It does not read or store personal
+information.
 
 ## Removal
 

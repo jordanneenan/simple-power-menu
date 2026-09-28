@@ -10,7 +10,7 @@ Ui.BarWidget {
 
   moduleName: "io.github.jordanneenan.simple-power-menu"
 
-  readonly property color foreground: bar ? bar.foreground : Commons.Color.foreground
+  readonly property color foreground: bar ? bar.barForeground : Commons.Color.foreground
   readonly property var powerPanel: panelLoader.item
   readonly property bool opened: powerPanel
     ? powerPanel.opened === true

@@ -39,6 +39,10 @@ Ui.BarWidget {
     if (powerPanel) powerPanel.closeForPopoutSwitch()
   }
 
+  function screenOff() {
+    screenOffOverlay.start()
+  }
+
   function injectPanel() {
     if (!panelLoader.item) return
     panelLoader.item.bar = root.bar
@@ -52,6 +56,10 @@ Ui.BarWidget {
 
   onBarChanged: injectPanel()
   onSettingsChanged: injectPanel()
+
+  ScreenOff {
+    id: screenOffOverlay
+  }
 
   Loader {
     id: panelLoader

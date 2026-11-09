@@ -18,13 +18,14 @@ Ui.Panel {
   readonly property color foreground: bar ? bar.foreground : Commons.Color.foreground
   readonly property color urgent: bar ? bar.urgent : Commons.Color.urgent
   readonly property var actions: [
+    { id: "screen-off", label: "Screen off", argv: [], danger: false },
     { id: "screensaver", label: "Screensaver", argv: ["/usr/bin/timeout", "--signal=TERM", "--kill-after=2s", "30s", "/usr/bin/omarchy", "launch", "screensaver"], danger: false },
     { id: "sleep", label: "Sleep", argv: ["/usr/bin/timeout", "--signal=TERM", "--kill-after=2s", "30s", "/usr/bin/systemctl", "suspend"], danger: false },
     { id: "lock", label: "Lock", argv: ["/usr/bin/timeout", "--signal=TERM", "--kill-after=2s", "30s", "/usr/bin/omarchy", "system", "lock"], danger: false },
     { id: "restart", label: "Restart", argv: ["/usr/bin/timeout", "--signal=TERM", "--kill-after=2s", "30s", "/usr/bin/omarchy", "system", "reboot"], danger: false },
     { id: "shutdown", label: "Shut down", argv: ["/usr/bin/timeout", "--signal=TERM", "--kill-after=2s", "30s", "/usr/bin/omarchy", "system", "shutdown"], danger: true }
   ]
-  readonly property var defaultActionIds: ["screensaver", "sleep", "lock", "restart", "shutdown"]
+  readonly property var defaultActionIds: ["screen-off", "screensaver", "sleep", "lock", "restart", "shutdown"]
   property var visibleActionIds: visibleActionIdsFromSettings(settings)
   property var actionOrderIds: actionOrderIdsFromSettings(settings)
   readonly property var orderedActions: actionOrderIds.map(function(id) {
@@ -172,6 +173,10 @@ Ui.Panel {
       return
     }
     close()
+    if (action.id === "screen-off") {
+      if (hostWidget) hostWidget.screenOff()
+      return
+    }
     // GNU timeout (without --foreground) owns a dedicated process group. It
     // bounds the complete action tree with TERM, followed by KILL after 2s.
     // Every executable and argument is a fixed absolute argv entry: no shell,

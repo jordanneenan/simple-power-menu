@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "io.github.jordanneenan.simple-power-menu",
   "name": "Simple Power Menu",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "author": "jordanneenan",
   "description": "A compact, customizable power menu anchored to the Omarchy bar",
   "homepage": "https://github.com/jordanneenan/simple-power-menu",
@@ -13,7 +13,7 @@
   },
   "barWidget": {
     "displayName": "Simple Power Menu",
-    "description": "Choose which lock, screensaver, sleep, restart, and shut-down actions to show",
+    "description": "Choose which screen-off, lock, screensaver, sleep, restart, and shut-down actions to show",
     "category": "System",
     "allowMultiple": false,
     "defaultSection": "right",
@@ -26,8 +26,9 @@
         "noSelectionText": "No actions",
         "placeholderText": "Search actions...",
         "emptyText": "No actions",
-        "defaultValue": ["screensaver", "sleep", "lock", "restart", "shutdown"],
+        "defaultValue": ["screen-off", "screensaver", "sleep", "lock", "restart", "shutdown"],
         "options": [
+          { "value": "screen-off", "label": "Screen off" },
           { "value": "screensaver", "label": "Screensaver" },
           { "value": "sleep", "label": "Sleep" },
           { "value": "lock", "label": "Lock" },
